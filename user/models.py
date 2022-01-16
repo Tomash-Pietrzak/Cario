@@ -1,3 +1,4 @@
+import jwt
 from django.db import models
 from django.contrib.auth.models import (
     AbstractBaseUser, PermissionsMixin, BaseUserManager
@@ -5,7 +6,7 @@ from django.contrib.auth.models import (
 from django.conf import settings
 from core.models import TimestampedModel
 from datetime import datetime, timedelta
-import jwt
+
 
 class UserManager(BaseUserManager):
     """
@@ -16,7 +17,7 @@ class UserManager(BaseUserManager):
     to create `User` objects.
     """
 
-    def create_user(self, username, email, type, password=None):
+    def create_user(self, username, email, password=None):
         """Create and return a `User` with an email, username and password."""
         user = None
         if username is None:
@@ -24,7 +25,6 @@ class UserManager(BaseUserManager):
 
         if email is None:
             raise TypeError('Users must have an email address.')
-
 
         user = User.objects.create(username=username, email=self.normalize_email(email))
 
@@ -59,7 +59,6 @@ class User(AbstractBaseUser, PermissionsMixin, TimestampedModel):
     email = models.EmailField(db_index=True, unique=True)
     password = models.CharField(max_length=255, default='')
 
-
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
     objects = UserManager()
@@ -72,7 +71,6 @@ class User(AbstractBaseUser, PermissionsMixin, TimestampedModel):
         a "dynamic property".
         """
         return self._generate_jwt_token()
-
 
     def _generate_jwt_token(self):
         """
@@ -88,34 +86,22 @@ class User(AbstractBaseUser, PermissionsMixin, TimestampedModel):
 
         return token
 
+
 class Car(models.Model):
-        Petrol = "BENZYNA"
-        LPG = "LPG"
-        Diesel = "DIESEL"
-        Electric = "ELEKTRYCZNY"
-        Hybrid = "HYBRYDA"
-        Fuel_Choices = (
+    Petrol = "BENZYNA"
+    LPG = "LPG"
+    Diesel = "DIESEL"
+    Electric = "ELEKTRYCZNY"
+    Hybrid = "HYBRYDA"
+    Fuel_Choices = (
         (Petrol, "Benzyna"), (LPG, "LPG"), (Diesel, "Diesel"), (Electric, "Elektryczny"), (Hybrid, "Hybryda"))
 
-        Auto = "AUTOMATYCZNA"
-        Manu = "MANUALNA"
+    Auto = "AUTOMATYCZNA"
+    Manu = "MANUALNA"
 
-        Tran_Choices = ((Manu, "Manualna"), (Auto, "Automatyczna"))
-        fuel = models.TextField(max_length=25, choices=Fuel_Choices, default=Petrol)
-        power = models.IntegerField()
-        mileage = models.IntegerField()
-        transmission = models.TextField(max_length=25, choices=Tran_Choices, default=Manu)
-        mileage = models.FloatField()
-        owner = models.ForeignKey(User, on_delete=models.CASCADE)
-
-
-
-
-
-
-
-
-
-
-
-
+    Tran_Choices = ((Manu, "Manualna"), (Auto, "Automatyczna"))
+    fuel = models.TextField(max_length=25, choices=Fuel_Choices, default=Petrol)
+    power = models.IntegerField()
+    mileage = models.IntegerField()
+    transmission = models.TextField(max_length=25, choices=Tran_Choices, default=Manu)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)

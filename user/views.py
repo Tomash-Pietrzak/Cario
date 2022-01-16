@@ -12,6 +12,7 @@ from .serializers import (
     LoginSerializer, RegistrationSerializer, UserSerializer
 )
 
+
 class UserViewSer(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -28,6 +29,7 @@ class RegistrationAPIView(APIView):
         serializer.save()
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
 
 class LoginAPIView(APIView):
     permission_classes = (AllowAny,)
