@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate
 from rest_framework import serializers
-from .models import User, Car
+from .models import User
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
@@ -91,7 +91,4 @@ class UserSerializer(serializers.ModelSerializer):
         return instance
 
 
-class CarSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Car
-        fields = '__all__'
+
