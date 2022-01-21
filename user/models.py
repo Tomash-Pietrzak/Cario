@@ -58,6 +58,7 @@ class User(AbstractBaseUser, PermissionsMixin, TimestampedModel):
     phone_number = models.CharField(max_length=11, default='')
     email = models.EmailField(db_index=True, unique=True)
     password = models.CharField(max_length=255, default='')
+    is_staff = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
