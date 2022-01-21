@@ -6,6 +6,7 @@ from rest_framework.generics import RetrieveUpdateAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from django.core.mail import send_mail
 
 from .renderers import UserJSONRenderer
 from .serializers import (
@@ -27,7 +28,6 @@ class RegistrationAPIView(APIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
@@ -37,7 +37,13 @@ class LoginAPIView(APIView):
     serializer_class = LoginSerializer
 
     def post(self, request):
+        user_mail = request.user.email
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
+        send_mail('Cario - rejestracja',
+                  'Dziękujemy za założenie konta.',
+                  [user_mail],
+                  fail_silently=False,
+                  )
 
         return Response(serializer.data, status=status.HTTP_200_OK)
