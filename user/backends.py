@@ -76,7 +76,6 @@ class JWTAuthentication(authentication.BaseAuthentication):
         except:
             msg = 'Invalid authentication. Could not decode token.'
             raise exceptions.AuthenticationFailed(msg)
-
         user = None
         try:
             user = User.objects.get(pk=payload['id'])
