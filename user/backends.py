@@ -76,7 +76,6 @@ class JWTAuthentication(authentication.BaseAuthentication):
         except:
             msg = 'Invalid authentication. Could not decode token.'
             raise exceptions.AuthenticationFailed(msg)
-
         user = None
         try:
             user = User.objects.get(pk=payload['id'])
@@ -87,6 +86,7 @@ class JWTAuthentication(authentication.BaseAuthentication):
         if user and not user.is_active:
             msg = 'This user has been deactivated.'
             raise exceptions.AuthenticationFailed(msg)
+
 
         obj = user
         return obj, token

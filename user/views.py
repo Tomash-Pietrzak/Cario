@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from rest_framework.decorators import action
+
 from .models import User
 from rest_framework import viewsets
 from rest_framework import status
@@ -13,9 +15,12 @@ from .serializers import (
 )
 
 
-class UserViewSer(viewsets.ModelViewSet):
+class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+
+
 
 
 class RegistrationAPIView(APIView):

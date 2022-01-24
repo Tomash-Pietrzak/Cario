@@ -88,21 +88,4 @@ class User(AbstractBaseUser, PermissionsMixin, TimestampedModel):
         return token
 
 
-class Car(models.Model):
-    Petrol = "BENZYNA"
-    LPG = "LPG"
-    Diesel = "DIESEL"
-    Electric = "ELEKTRYCZNY"
-    Hybrid = "HYBRYDA"
-    Fuel_Choices = (
-        (Petrol, "Benzyna"), (LPG, "LPG"), (Diesel, "Diesel"), (Electric, "Elektryczny"), (Hybrid, "Hybryda"))
 
-    Auto = "AUTOMATYCZNA"
-    Manu = "MANUALNA"
-
-    Tran_Choices = ((Manu, "Manualna"), (Auto, "Automatyczna"))
-    fuel = models.TextField(max_length=25, choices=Fuel_Choices, default=Petrol)
-    power = models.IntegerField()
-    mileage = models.IntegerField()
-    transmission = models.TextField(max_length=25, choices=Tran_Choices, default=Manu)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
