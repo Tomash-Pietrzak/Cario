@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 from decouple import config
 
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -36,9 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_celery_beat',
+    'django_celery_results',
     'user',
     'core',
-    'offers'
+    'offers',
     'cariomail',
 ]
 
@@ -128,6 +132,13 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         "user.backends.JWTAuthentication"
     )}
+
+# CELERY CONFIGURATIONS
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
 
 # SMTP CONFIGURATIONS
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

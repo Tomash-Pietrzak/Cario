@@ -21,9 +21,6 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
 
 
-
-
-
 class RegistrationAPIView(APIView):
     permission_classes = (AllowAny,)
     renderer_classes = (UserJSONRenderer,)
@@ -42,13 +39,7 @@ class LoginAPIView(APIView):
     serializer_class = LoginSerializer
 
     def post(self, request):
-        user_mail = request.user.email
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-        send_mail('Cario - rejestracja',
-                  'Dziękujemy za założenie konta.',
-                  [user_mail],
-                  fail_silently=False,
-                  )
 
         return Response(serializer.data, status=status.HTTP_200_OK)
