@@ -86,8 +86,7 @@ class JWTAuthentication(authentication.BaseAuthentication):
         if user and not user.is_active:
             msg = 'This user has been deactivated.'
             raise exceptions.AuthenticationFailed(msg)
-        print("Sprawdzamy")
-        print(user)
+
 
         obj = user
         return obj, token
