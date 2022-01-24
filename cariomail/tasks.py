@@ -20,10 +20,10 @@ def xsum(numbers):
     return sum(numbers)
 
 
-@shared_task(name="send_email")
-def send_email():
+@shared_task(name="send_email_to")
+def send_email_to(to_email, email_title, email_message):
 
-    title = "Django sends mail"
-    message = "This email is sent by the program, please ignore"
-    mail_sent = send_mail(title, message, settings.EMAIL_HOST_USER, ["tomaszpietrzak14@gmail.com",])
+    title = email_title
+    message = str(email_message)
+    mail_sent = send_mail(title, message, settings.EMAIL_HOST_USER, [to_email, ])
     return mail_sent
