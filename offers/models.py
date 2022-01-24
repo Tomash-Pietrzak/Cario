@@ -1,6 +1,7 @@
 from django.db import models
 from cario import settings
 
+
 class Offer(models.Model):
     Petrol = "BENZYNA"
     LPG = "LPG"
@@ -18,7 +19,7 @@ class Offer(models.Model):
     power = models.IntegerField()
     mileage = models.IntegerField()
     transmission = models.TextField(max_length=25, choices=Tran_Choices, default=Manu)
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL,null=True, on_delete=models.CASCADE)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE)
     brand = models.TextField(max_length=25, default='')
     model = models.TextField(max_length=25, default='')
 

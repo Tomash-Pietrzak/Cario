@@ -21,4 +21,5 @@ urlpatterns = [
     re_path('admin/', admin.site.urls),
     re_path(r'^api/', include(('user.urls', 'users'), namespace='users')),
     url(r'^api/', include((offers_router.urls, 'offers'))),
+    re_path(r'^api/', include(('cariomail.urls', 'mail'))),
 ]
