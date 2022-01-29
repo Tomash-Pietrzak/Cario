@@ -22,6 +22,7 @@ class Offer(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE)
     brand = models.TextField(max_length=25, default='')
     model = models.TextField(max_length=25, default='')
+    price = models.IntegerField()
 
     class Meta:
         ordering = ['brand']
