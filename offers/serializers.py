@@ -8,9 +8,10 @@ class OfferSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Offer
-        fields = ("fuel", "power", "mileage", "transmission", "brand", "model", "owner")
+        fields = ('fuel', 'power', 'mileage', 'transmission', 'brand', 'model', 'owner', 'price')
 
     def create(self, validated_data):
         user = self.context['request'].user
         validated_data['owner'] = user
         return super(OfferSerializer, self).create(validated_data)
+
