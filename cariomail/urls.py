@@ -1,5 +1,5 @@
-# from django.urls import re_path
-# from . import views
-# urlpatterns = [
-#     re_path(r'^mail/?$', views.mail, name='mail'),
-# ]
+from django.urls import re_path
+from . import views
+urlpatterns = [
+    re_path(r'^mail/?$', views.mail, name='mail'),
+]
